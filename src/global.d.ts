@@ -7,13 +7,29 @@ declare global {
     data: {
       [key: string]: number;
       temperature: number;
-      humidity?: number;
-      pressure?: number;
-      luminance?: number;
-      wind_speed?: number;
-      gust_speed?: number;
-      wind_direction?: number;
-      rain?: number;
+      humidity: number;
+      pressure: number;
+      luminance: number;
+      wind_speed: number;
+      gust_speed: number;
+      wind_direction: number;
+      rain: number;
+    };
+  };
+
+  type FormattedReading = {
+    stationName: string;
+    timestamp: string;
+    data: {
+      [key: string]: number;
+      temperature: number;
+      humidity: number;
+      pressure: number;
+      luminance: number;
+      windSpeed: number;
+      gustSpeed: number;
+      windDirection: number;
+      rain: number;
     };
   };
 

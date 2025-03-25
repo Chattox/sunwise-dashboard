@@ -5,6 +5,7 @@ declare global {
     station_name: string;
     timestamp: string;
     data: {
+      [key: string]: number;
       temperature: number;
       humidity?: number;
       pressure?: number;
@@ -14,5 +15,9 @@ declare global {
       wind_direction?: number;
       rain?: number;
     };
+  };
+
+  type DataLabels = {
+    [key: string]: { label: string; unit: string };
   };
 }

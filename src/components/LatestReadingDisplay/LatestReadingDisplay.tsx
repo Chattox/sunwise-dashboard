@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getLatestReading } from "../../utils";
-import { Text } from "@mantine/core";
+import { Group } from "@mantine/core";
+import { LatestReadingCard } from "./LatestReadingCard";
 
 export const LatestReadingDisplay = (props: { station: string }) => {
   const [latestReading, setLatestReading] = useState<Reading>({
@@ -24,7 +25,17 @@ export const LatestReadingDisplay = (props: { station: string }) => {
     }
   }, [props.station]);
 
-  const display = <Text>Hello: {latestReading.station_name}</Text>;
+  const display = (
+    <Group>
+      {Object.keys(latestReading.data).map((measurement: string) => (
+        <LatestReadingCard
+          measurement={measurement}
+          reading={latestReading.data[measurement]}
+          key={measurement}
+        />
+      ))}
+    </Group>
+  );
 
   return <>{loading ? <p>Loading</p> : display}</>;
 };

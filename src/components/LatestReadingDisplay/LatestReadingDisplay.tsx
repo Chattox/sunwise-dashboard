@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getLatestReading } from "../../utils";
-import { Group } from "@mantine/core";
+import { Group, Stack, Text } from "@mantine/core";
 import { LatestReadingCard } from "./LatestReadingCard";
 import { formatReadings } from "../../utils/formatReadings";
 
@@ -34,7 +34,7 @@ export const LatestReadingDisplay = (props: { station: string }) => {
   }, [props.station]);
 
   const display = (
-    <Group>
+    <Group w="100%" gap="xs" grow>
       {Object.keys(latestReading.data).map((measurement: string) => (
         <LatestReadingCard
           measurement={measurement}
@@ -45,5 +45,19 @@ export const LatestReadingDisplay = (props: { station: string }) => {
     </Group>
   );
 
-  return <>{loading ? <p>Loading</p> : display}</>;
+  return (
+    <>
+      {loading ? (
+        <p>Loading</p>
+      ) : (
+        <Stack>
+          <Text fw={500}>
+            Latest reading:{" "}
+            {latestReading.timestamp ? latestReading.timestamp : "N/A"}
+          </Text>
+          {display}
+        </Stack>
+      )}
+    </>
+  );
 };

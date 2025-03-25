@@ -1,10 +1,11 @@
 import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
+import { Dashboard } from "./components/Dashboard";
 
 function App() {
   return (
     <MantineProvider>
-      <p>Hello, world</p>
+      <Dashboard />
     </MantineProvider>
   );
 }

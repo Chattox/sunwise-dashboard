@@ -1,0 +1,18 @@
+export {};
+
+declare global {
+  type Reading = {
+    station_name: string;
+    timestamp: string;
+    data: {
+      temperature: number;
+      humidity?: number;
+      pressure?: number;
+      luminance?: number;
+      wind_speed?: number;
+      gust_speed?: number;
+      wind_direction?: number;
+      rain?: number;
+    };
+  };
+}

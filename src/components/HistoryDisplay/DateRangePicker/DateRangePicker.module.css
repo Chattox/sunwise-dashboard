@@ -1,0 +1,11 @@
+.disabledIndicator {
+  display: none;
+}
+
+.segmentIndicator {
+  background-color: var(--mantine-color-gray-0);
+}
+
+.dropdown {
+  border: none;
+}

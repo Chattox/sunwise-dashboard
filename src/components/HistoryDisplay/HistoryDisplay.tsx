@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { DateRangePicker } from "./DateRangePicker/DateRangePicker";
-import { getDateRangeReadings } from "../../utils";
+import { getAllReadings, getDateRangeReadings } from "../../utils";
 import { formatReadings } from "../../utils/formatReadings";
 
 export const HistoryDisplay = (props: { station: string }) => {
@@ -17,18 +17,29 @@ export const HistoryDisplay = (props: { station: string }) => {
 
   useEffect(() => {
     setLoading(true);
-    getDateRangeReadings(
-      props.station,
-      startDate.toISOString(),
-      endDate.toISOString()
-    ).then((res) => {
-      setReadingsHistory(formatReadings(res));
-      if (props.station) {
-        setLoading(false);
-        console.log(res);
-      }
-    });
-  }, [props.station, startDate, endDate]);
+    console.log(period);
+    if (period === "all") {
+      getAllReadings(props.station).then((res) => {
+        setReadingsHistory(formatReadings(res));
+        if (props.station) {
+          setLoading(false);
+          console.log(res);
+        }
+      });
+    } else {
+      getDateRangeReadings(
+        props.station,
+        startDate.toISOString(),
+        endDate.toISOString()
+      ).then((res) => {
+        setReadingsHistory(formatReadings(res));
+        if (props.station) {
+          setLoading(false);
+          console.log(res);
+        }
+      });
+    }
+  }, [props.station, startDate, endDate, period]);
 
   const setDateRange = (dates: dayjs.Dayjs[]) => {
     setStartDate(dates[0]);

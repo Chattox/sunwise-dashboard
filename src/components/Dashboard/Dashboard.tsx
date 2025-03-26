@@ -1,14 +1,18 @@
-import { Box, Title } from "@mantine/core";
+import { Box, Stack, Title } from "@mantine/core";
 import { LatestReadingDisplay } from "../LatestReadingDisplay";
+import { HistoryDisplay } from "../HistoryDisplay";
 
 export const Dashboard = () => {
   return (
     <Box p="xs">
-      <Title order={2} mb="md">
-        Sunwise Dashboard
-      </Title>
-      <Title order={4}>Current conditions</Title>
-      <LatestReadingDisplay station="sunwise" />
+      <Stack>
+        <Title order={2} mb="md">
+          Sunwise Dashboard
+        </Title>
+        <Title order={4}>Current conditions</Title>
+        <LatestReadingDisplay station="sunwise" />
+        <HistoryDisplay station="sunwise" />
+      </Stack>
     </Box>
   );
 };

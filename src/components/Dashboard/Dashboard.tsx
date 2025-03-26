@@ -3,7 +3,7 @@ import { LatestReadingDisplay } from "../LatestReadingDisplay";
 
 export const Dashboard = () => {
   return (
-    <Box>
+    <Box p="xs">
       <Title order={2} mb="md">
         Sunwise Dashboard
       </Title>

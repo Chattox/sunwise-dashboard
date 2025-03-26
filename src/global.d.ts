@@ -33,6 +33,11 @@ declare global {
     };
   };
 
+  type IndividualReading = {
+    timestamp: string;
+    reading: number;
+  };
+
   type DataLabels = {
     [key: string]: { label: string; unit: string };
   };

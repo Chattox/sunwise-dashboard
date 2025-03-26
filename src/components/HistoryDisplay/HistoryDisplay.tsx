@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { DateRangePicker } from "./DateRangePicker/DateRangePicker";
-import { getAllReadings, getDateRangeReadings } from "../../utils";
+import { dataLabels, getAllReadings, getDateRangeReadings } from "../../utils";
 import { formatReadings } from "../../utils/formatReadings";
+import { getIndividualReadingHistory } from "../../utils/getIndividualReadingHistory";
 
 export const HistoryDisplay = (props: { station: string }) => {
   const [readingsHistory, setReadingsHistory] = useState<FormattedReading[]>(
@@ -15,15 +16,25 @@ export const HistoryDisplay = (props: { station: string }) => {
   const [period, setPeriod] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
+  const chartTypes: Record<string, string> = {
+    temperature: "area",
+    humidity: "area",
+    pressure: "area",
+    luminance: "area",
+    windSpeed: "area",
+    gustSpeed: "area",
+    windDirection: "rose",
+    rain: "bar",
+    cumulativeRain: "area",
+  };
+
   useEffect(() => {
     setLoading(true);
-    console.log(period);
     if (period === "all") {
       getAllReadings(props.station).then((res) => {
         setReadingsHistory(formatReadings(res));
         if (props.station) {
           setLoading(false);
-          console.log(res);
         }
       });
     } else {
@@ -35,7 +46,6 @@ export const HistoryDisplay = (props: { station: string }) => {
         setReadingsHistory(formatReadings(res));
         if (props.station) {
           setLoading(false);
-          console.log(res);
         }
       });
     }

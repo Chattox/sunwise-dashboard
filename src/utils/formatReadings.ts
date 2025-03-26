@@ -1,3 +1,4 @@
+import { round } from "./round";
 /**
  * Formats readings returned from API, adjusting attribute names and rounding to 2sf
  *
@@ -6,10 +7,6 @@
  * @returns {FormattedReading[]} Array of formatted readings
  */
 export const formatReadings = (readings: Reading[]): FormattedReading[] => {
-  const round = (num: number): number => {
-    return Math.round(num * 100) / 100;
-  };
-
   return readings.map((reading) => {
     return {
       stationName: reading.station_name,

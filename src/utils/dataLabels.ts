@@ -7,4 +7,5 @@ export const dataLabels: DataLabels = {
   gustSpeed: { label: "Gust speed", unit: "m/s" },
   windDirection: { label: "Wind direction", unit: "⁰" },
   rain: { label: "Rainfall", unit: "mm" },
+  cumulativeRain: { label: "Cumulative rainfall", unit: "mm" },
 };

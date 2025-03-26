@@ -1,0 +1,18 @@
+.cardRoot {
+  height: 150px;
+  min-width: 275px;
+}
+
+.label {
+  font-size: var(--mantine-font-size-lg);
+}
+
+.reading {
+  font-size: var(--mantine-font-size-cardReading);
+  font-weight: 500;
+}
+
+.unit {
+  font-size: var(--mantine-font-size-cardUnit);
+  font-weight: 500;
+}

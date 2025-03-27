@@ -9,7 +9,7 @@ export const getIndividualReadingHistory = (
   } else {
     return readings.map((reading) => ({
       timestamp: reading.timestamp,
-      reading: reading.data[measurement] as number,
+      [measurement]: reading.data[measurement] as number,
     }));
   }
 };

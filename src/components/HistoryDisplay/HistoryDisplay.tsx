@@ -4,6 +4,8 @@ import { DateRangePicker } from "./DateRangePicker/DateRangePicker";
 import { dataLabels, getAllReadings, getDateRangeReadings } from "../../utils";
 import { formatReadings } from "../../utils/formatReadings";
 import { getIndividualReadingHistory } from "../../utils/getIndividualReadingHistory";
+import { ReadingAreaChart } from "./charts/ReadingAreaChart";
+import { Grid, Paper, Stack, Text } from "@mantine/core";
 
 export const HistoryDisplay = (props: { station: string }) => {
   const [readingsHistory, setReadingsHistory] = useState<FormattedReading[]>(
@@ -56,6 +58,36 @@ export const HistoryDisplay = (props: { station: string }) => {
     setEndDate(dates[1]);
   };
 
+  const getChart = (data: IndividualReading[], measurement: string) => {
+    switch (chartTypes[measurement]) {
+      case "area":
+        return <ReadingAreaChart data={data} measurement={measurement} />;
+      default:
+        return undefined;
+    }
+  };
+
+  const historyDisplays = Object.keys(dataLabels).map((measurement: string) => {
+    const data = getIndividualReadingHistory(readingsHistory, measurement);
+
+    return (
+      <Grid.Col>
+        <Paper shadow="xs" p="sm">
+          <Stack h="100%" justify="flex-start">
+            <Text size="lg" fw={500} pl={16}>
+              {dataLabels[measurement].label}
+            </Text>
+            {data.length > 0 ? (
+              getChart(data, measurement)
+            ) : (
+              <Text ta="center">No data</Text>
+            )}
+          </Stack>
+        </Paper>
+      </Grid.Col>
+    );
+  });
+
   return (
     <>
       <DateRangePicker
@@ -64,6 +96,7 @@ export const HistoryDisplay = (props: { station: string }) => {
         period={period}
         setPeriod={setPeriod}
       />
+      {loading ? <Text>Loading</Text> : <Grid w="100%">{historyDisplays}</Grid>}
     </>
   );
 };

@@ -35,7 +35,7 @@ declare global {
 
   type IndividualReading = {
     timestamp: string;
-    reading: number;
+    [key: string]: string | number;
   };
 
   type DataLabels = {

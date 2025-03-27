@@ -14,12 +14,14 @@ export const getCumulativeRainfall = (
     if (accRainfall.length > 0) {
       accRainfall.push({
         timestamp: reading.timestamp,
-        reading: round(reading.data.rain + accRainfall.at(-1)!.reading),
+        cumulativeRain: round(
+          reading.data.rain + (accRainfall.at(-1)!.reading as number)
+        ),
       });
     } else {
       accRainfall.push({
         timestamp: reading.timestamp,
-        reading: reading.data.rain,
+        cumulativeRain: reading.data.rain,
       });
     }
   });

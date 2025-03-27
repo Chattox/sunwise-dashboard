@@ -15,7 +15,8 @@ export const getCumulativeRainfall = (
       accRainfall.push({
         timestamp: reading.timestamp,
         cumulativeRain: round(
-          reading.data.rain + (accRainfall.at(-1)!.reading as number)
+          reading.data.rain +
+            (accRainfall[accRainfall.length - 1].cumulativeRain as number)
         ),
       });
     } else {

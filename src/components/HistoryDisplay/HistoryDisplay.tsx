@@ -6,6 +6,7 @@ import { formatReadings } from "../../utils/formatReadings";
 import { getIndividualReadingHistory } from "../../utils/getIndividualReadingHistory";
 import { ReadingAreaChart } from "./charts/ReadingAreaChart";
 import { Grid, Paper, Stack, Text } from "@mantine/core";
+import { ReadingBarChart } from "./charts/ReadingBarChart";
 
 export const HistoryDisplay = (props: { station: string }) => {
   const [readingsHistory, setReadingsHistory] = useState<FormattedReading[]>(
@@ -62,6 +63,8 @@ export const HistoryDisplay = (props: { station: string }) => {
     switch (chartTypes[measurement]) {
       case "area":
         return <ReadingAreaChart data={data} measurement={measurement} />;
+      case "bar":
+        return <ReadingBarChart data={data} measurement={measurement} />;
       default:
         return undefined;
     }

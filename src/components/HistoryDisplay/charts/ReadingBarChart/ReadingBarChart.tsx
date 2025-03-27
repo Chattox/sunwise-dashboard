@@ -1,13 +1,13 @@
-import { AreaChart } from "@mantine/charts";
+import { BarChart } from "@mantine/charts";
 import { dataLabels } from "../../../../utils";
 
-export const ReadingAreaChart = (props: {
+export const ReadingBarChart = (props: {
   data: IndividualReading[];
   measurement: string;
 }) => {
   const label = dataLabels[props.measurement].label;
   return (
-    <AreaChart
+    <BarChart
       h={300}
       data={props.data}
       dataKey="timestamp"

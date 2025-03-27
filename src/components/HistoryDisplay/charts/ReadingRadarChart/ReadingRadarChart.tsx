@@ -1,0 +1,18 @@
+import { RadarChart } from "@mantine/charts";
+import { dataLabels } from "../../../../utils";
+
+export const ReadingRadarChart = (props: {
+  data: WindDirData[];
+  measurement: string;
+}) => {
+  const label = dataLabels[props.measurement].label;
+  console.log(props.data);
+  return (
+    <RadarChart
+      h={300}
+      data={props.data}
+      dataKey="dir"
+      series={[{ name: "amount", label: label, color: "blue.4" }]}
+    />
+  );
+};

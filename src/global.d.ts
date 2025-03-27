@@ -38,6 +38,11 @@ declare global {
     [key: string]: string | number;
   };
 
+  type WindDirData = {
+    dir: string;
+    amount: number;
+  };
+
   type DataLabels = {
     [key: string]: { label: string; unit: string };
   };

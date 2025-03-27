@@ -7,6 +7,8 @@ import { getIndividualReadingHistory } from "../../utils/getIndividualReadingHis
 import { ReadingAreaChart } from "./charts/ReadingAreaChart";
 import { Grid, Paper, Stack, Text } from "@mantine/core";
 import { ReadingBarChart } from "./charts/ReadingBarChart";
+import { ReadingRadarChart } from "./charts/ReadingRadarChart";
+import { getWindDirData } from "../../utils/getWindData";
 
 export const HistoryDisplay = (props: { station: string }) => {
   const [readingsHistory, setReadingsHistory] = useState<FormattedReading[]>(
@@ -26,7 +28,7 @@ export const HistoryDisplay = (props: { station: string }) => {
     luminance: "area",
     windSpeed: "area",
     gustSpeed: "area",
-    windDirection: "rose",
+    windDirection: "radar",
     rain: "bar",
     cumulativeRain: "area",
   };
@@ -65,6 +67,13 @@ export const HistoryDisplay = (props: { station: string }) => {
         return <ReadingAreaChart data={data} measurement={measurement} />;
       case "bar":
         return <ReadingBarChart data={data} measurement={measurement} />;
+      case "radar":
+        return (
+          <ReadingRadarChart
+            data={getWindDirData(readingsHistory)}
+            measurement={measurement}
+          />
+        );
       default:
         return undefined;
     }

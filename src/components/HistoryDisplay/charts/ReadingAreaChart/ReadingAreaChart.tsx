@@ -2,6 +2,7 @@ import { AreaChart } from "@mantine/charts";
 import { dataLabels } from "../../../../utils";
 import { Stack } from "@mantine/core";
 import { ChartMinMax } from "../ChartMinMax";
+import { formatTimestamps } from "../../../../utils/formatTimestamps";
 
 export const ReadingAreaChart = (props: {
   data: IndividualReading[];
@@ -9,6 +10,9 @@ export const ReadingAreaChart = (props: {
 }) => {
   const label = dataLabels[props.measurement].label;
   const unit = dataLabels[props.measurement].unit;
+
+  const chartData = formatTimestamps(props.data, props.measurement);
+
   console.log(`Name: ${props.measurement}, label: ${label}, unit: ${unit}`);
   console.log(props.data);
   return (
@@ -16,7 +20,7 @@ export const ReadingAreaChart = (props: {
       <AreaChart
         h={300}
         w="100%"
-        data={props.data}
+        data={chartData}
         dataKey="timestamp"
         series={[{ name: props.measurement, label: label, color: "blue.6" }]}
         withGradient

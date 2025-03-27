@@ -32,8 +32,8 @@ export const ReadingAreaChart = (props: {
           interval: 0,
         }}
         xAxisProps={{ tick: false }}
-        curveType="linear"
-        withDots={true}
+        curveType="bump"
+        withDots={false}
       />
       <ChartMinMax data={props.data} measurement={props.measurement} />
     </Stack>

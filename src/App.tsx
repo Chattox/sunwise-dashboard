@@ -1,4 +1,6 @@
 import "@mantine/core/styles.css";
+import "@mantine/charts/styles.css";
+import "@mantine/dates/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { Dashboard } from "./components/Dashboard";
 import { theme } from "./theme";

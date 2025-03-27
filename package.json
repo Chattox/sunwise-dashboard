@@ -12,8 +12,11 @@
   "dependencies": {
     "@mantine/charts": "^7.17.2",
     "@mantine/core": "^7.17.2",
+    "@mantine/dates": "^7.17.2",
     "@mantine/hooks": "^7.17.2",
+    "@tabler/icons-react": "^3.31.0",
     "axios": "^1.8.4",
+    "dayjs": "^1.11.13",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "recharts": "^2.15.1"
@@ -33,5 +36,8 @@
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
+  },
+  "overrides": {
+    "react-is": "^19.0.0"
   }
 }

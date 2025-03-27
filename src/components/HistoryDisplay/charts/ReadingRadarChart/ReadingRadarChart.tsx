@@ -6,7 +6,6 @@ export const ReadingRadarChart = (props: {
   measurement: string;
 }) => {
   const label = dataLabels[props.measurement].label;
-  console.log(props.data);
   return (
     <RadarChart
       h={300}

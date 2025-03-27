@@ -83,7 +83,7 @@ export const HistoryDisplay = (props: { station: string }) => {
     const data = getIndividualReadingHistory(readingsHistory, measurement);
 
     return (
-      <Grid.Col>
+      <Grid.Col span={4} key={dataLabels[measurement].label}>
         <Paper shadow="xs" p="sm">
           <Stack h="100%" justify="flex-start">
             <Text size="lg" fw={500} pl={16}>
@@ -101,7 +101,7 @@ export const HistoryDisplay = (props: { station: string }) => {
   });
 
   return (
-    <>
+    <Stack align="flex-start">
       <DateRangePicker
         dateRange={[startDate, endDate]}
         setDateRange={setDateRange}
@@ -109,6 +109,6 @@ export const HistoryDisplay = (props: { station: string }) => {
         setPeriod={setPeriod}
       />
       {loading ? <Text>Loading</Text> : <Grid w="100%">{historyDisplays}</Grid>}
-    </>
+    </Stack>
   );
 };

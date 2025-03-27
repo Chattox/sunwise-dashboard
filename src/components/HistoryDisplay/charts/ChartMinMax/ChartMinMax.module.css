@@ -1,0 +1,15 @@
+.table {
+  width: min-content;
+}
+
+.th {
+  text-align: right;
+  white-space: nowrap;
+  width: auto;
+}
+
+.td {
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+}

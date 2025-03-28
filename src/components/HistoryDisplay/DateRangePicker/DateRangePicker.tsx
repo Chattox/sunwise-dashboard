@@ -3,7 +3,7 @@ import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import classes from "./DateRangePicker.module.css";
-// import { IconChevronDown, IconClockHour9 } from "@tabler/icons-react";
+import { TbChevronDown, TbClockHour9 } from "react-icons/tb";
 
 export const DateRangePicker = (props: {
   dateRange?: dayjs.Dayjs[];
@@ -78,8 +78,8 @@ export const DateRangePicker = (props: {
         <Button
           onClick={() => setOpened((o) => !o)}
           radius="xs"
-          //leftSection={<IconClockHour9 size={16} />}
-          //rightSection={<IconChevronDown size={16} />}
+          leftSection={<TbClockHour9 size={16} />}
+          rightSection={<TbChevronDown size={16} />}
         >
           {rangeSegmentControlDict[props.period]}
         </Button>

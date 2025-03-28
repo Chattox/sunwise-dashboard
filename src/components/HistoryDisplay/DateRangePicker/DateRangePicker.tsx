@@ -48,7 +48,6 @@ export const DateRangePicker = (props: {
   }, [props.period]);
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
-    props.setPeriod("custom");
     if (start && end) {
       const startDjs = dayjs(start);
       const endDjs = dayjs(end);
@@ -62,6 +61,7 @@ export const DateRangePicker = (props: {
 
       setRange([start, end]);
       setOpened(false);
+      props.setPeriod("custom");
     } else {
       setRange([start, null]);
     }

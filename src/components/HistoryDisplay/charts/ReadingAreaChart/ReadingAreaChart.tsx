@@ -1,4 +1,4 @@
-import { AreaChart } from "@mantine/charts";
+import { AreaChart, ChartReferenceLineProps } from "@mantine/charts";
 import { dataLabels } from "../../../../utils";
 import { Stack } from "@mantine/core";
 import { ChartMinMax } from "../ChartMinMax";
@@ -12,6 +12,18 @@ export const ReadingAreaChart = (props: {
   const unit = dataLabels[props.measurement].unit;
   const lineColor = dataLabels[props.measurement].color || "gray.6";
   const chartData = formatTimestamps(props.data, props.measurement);
+
+  const referenceLine: ChartReferenceLineProps[] = [];
+
+  if (props.measurement === "temperature") {
+    let belowZero = false;
+    chartData.forEach((reading: IndividualReading) => {
+      if ((reading.temperature as number) < 0) {
+        belowZero = true;
+      }
+    });
+    if (belowZero) referenceLine.push({ y: 0, label: "0 °C", color: "cyan.6" });
+  }
 
   return (
     <Stack align="flex-end">
@@ -30,6 +42,7 @@ export const ReadingAreaChart = (props: {
         xAxisProps={{ tick: false }}
         curveType="bump"
         withDots={false}
+        referenceLines={referenceLine}
       />
       <ChartMinMax data={props.data} measurement={props.measurement} />
     </Stack>

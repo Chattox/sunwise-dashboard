@@ -10,11 +10,9 @@ export const ReadingAreaChart = (props: {
 }) => {
   const label = dataLabels[props.measurement].label;
   const unit = dataLabels[props.measurement].unit;
-
+  const lineColor = dataLabels[props.measurement].color || "gray.6";
   const chartData = formatTimestamps(props.data, props.measurement);
 
-  console.log(`Name: ${props.measurement}, label: ${label}, unit: ${unit}`);
-  console.log(props.data);
   return (
     <Stack align="flex-end">
       <AreaChart
@@ -22,7 +20,7 @@ export const ReadingAreaChart = (props: {
         w="100%"
         data={chartData}
         dataKey="timestamp"
-        series={[{ name: props.measurement, label: label, color: "blue.6" }]}
+        series={[{ name: props.measurement, label: label, color: lineColor }]}
         withGradient
         unit={unit}
         yAxisProps={{

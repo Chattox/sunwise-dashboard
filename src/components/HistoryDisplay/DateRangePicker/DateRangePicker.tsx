@@ -80,6 +80,9 @@ export const DateRangePicker = (props: {
           radius="xs"
           leftSection={<TbClockHour9 size={16} />}
           rightSection={<TbChevronDown size={16} />}
+          variant="default"
+          c="inherit"
+          bd="none"
         >
           {rangeSegmentControlDict[props.period]}
         </Button>

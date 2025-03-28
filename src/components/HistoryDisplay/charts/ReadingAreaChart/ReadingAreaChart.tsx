@@ -17,11 +17,9 @@ export const ReadingAreaChart = (props: {
     <Stack align="flex-end">
       <AreaChart
         h={300}
-        w="100%"
         data={chartData}
         dataKey="timestamp"
         series={[{ name: props.measurement, label: label, color: lineColor }]}
-        withGradient
         unit={unit}
         yAxisProps={{
           domain: ["auto", "auto"],

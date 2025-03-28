@@ -21,6 +21,13 @@ export const ReadingBarChart = (props: {
         unit={unit}
         dataKey="timestamp"
         series={[{ name: props.measurement, label: label, color: lineColor }]}
+        yAxisProps={{
+          domain: ["auto", "auto"],
+          width: 70,
+          tickLine: false,
+          interval: 0,
+        }}
+        xAxisProps={{ tick: false }}
       />
       <ChartMinMax data={props.data} measurement={props.measurement} />
     </Stack>

@@ -4,8 +4,23 @@
 
 .segmentIndicator {
   background-color: var(--mantine-color-gray-0);
+
+  @mixin dark {
+    background-color: var(--mantine-color-dark-8);
+  }
 }
 
 .dropdown {
   border: none;
+}
+
+.datePickerDay {
+  &[data-first-in-range],
+  &[data-last-in-range] {
+    background-color: var(--mantine-color-dark-8) !important;
+    color: inherit;
+  }
+  &[data-in-range] {
+    background-color: alpha(var(--mantine-color-dark-8), 0.5);
+  }
 }

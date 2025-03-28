@@ -73,6 +73,8 @@ export const DateRangePicker = (props: {
       onChange={setOpened}
       shadow="sm"
       classNames={{ dropdown: classes.dropdown }}
+      radius="xs"
+      position="bottom-start"
     >
       <Popover.Target>
         <Button
@@ -87,7 +89,7 @@ export const DateRangePicker = (props: {
           {rangeSegmentControlDict[props.period]}
         </Button>
       </Popover.Target>
-      <Popover.Dropdown>
+      <Popover.Dropdown p="xs">
         <Group>
           <DatePicker
             type="range"
@@ -95,6 +97,7 @@ export const DateRangePicker = (props: {
             value={range}
             onChange={(e) => handleDateChange(e[0], e[1])}
             maxDate={new Date()}
+            classNames={{ day: classes.datePickerDay }}
           />
           <SegmentedControl
             orientation="vertical"
@@ -111,6 +114,7 @@ export const DateRangePicker = (props: {
               { label: "All", value: "all" },
             ]}
             withItemsBorders={false}
+            bg="none"
             classNames={{
               indicator:
                 props.period === "custom"

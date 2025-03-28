@@ -6,12 +6,14 @@ export const ReadingRadarChart = (props: {
   measurement: string;
 }) => {
   const label = dataLabels[props.measurement].label;
+  const lineColor = dataLabels[props.measurement].color || "gray.6";
+
   return (
     <RadarChart
       h={300}
       data={props.data}
       dataKey="dir"
-      series={[{ name: "amount", label: label, color: "blue.4" }]}
+      series={[{ name: "amount", label: label, color: lineColor }]}
     />
   );
 };

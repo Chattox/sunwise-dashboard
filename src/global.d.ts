@@ -44,6 +44,6 @@ declare global {
   };
 
   type DataLabels = {
-    [key: string]: { label: string; unit: string };
+    [key: string]: { label: string; unit: string; color?: string };
   };
 }

@@ -15,6 +15,7 @@ export const Dashboard = () => {
         </Group>
         <Title order={4}>Current conditions</Title>
         <LatestReadingDisplay station="sunwise" />
+        <Title order={4}>History</Title>
         <HistoryDisplay station="sunwise" />
       </Stack>
     </Box>

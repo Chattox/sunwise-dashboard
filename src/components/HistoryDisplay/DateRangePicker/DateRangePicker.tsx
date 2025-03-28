@@ -105,6 +105,7 @@ export const DateRangePicker = (props: {
             onChange={(e) => {
               props.setPeriod(e);
               setOpened(false);
+              setRange([null, null]);
             }}
             data={[
               { label: "24hr", value: "day" },

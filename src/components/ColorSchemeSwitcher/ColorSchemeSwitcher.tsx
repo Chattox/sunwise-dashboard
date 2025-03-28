@@ -3,7 +3,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
 } from "@mantine/core";
-import { IoMoon, IoSunny } from "react-icons/io5";
+import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 export const ColorSchemeSwitcher = () => {
   const { setColorScheme } = useMantineColorScheme();
@@ -14,9 +14,14 @@ export const ColorSchemeSwitcher = () => {
       onClick={() => {
         setColorScheme(computedColorScheme === "dark" ? "light" : "dark");
       }}
-      variant="filled"
+      size="lg"
+      variant="default"
     >
-      {computedColorScheme === "dark" ? <IoMoon /> : <IoSunny />}
+      {computedColorScheme === "dark" ? (
+        <IoMoonOutline size={21} />
+      ) : (
+        <IoSunnyOutline size={24} />
+      )}
     </ActionIcon>
   );
 };

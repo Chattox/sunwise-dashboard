@@ -1,14 +1,10 @@
-.cardRoot {
-  height: 150px;
-  min-width: 275px;
-}
-
-.label {
-  font-size: var(--mantine-font-size-lg);
-}
-
 .reading {
   font-size: var(--mantine-font-size-cardReading);
+  font-weight: 500;
+}
+
+.windDirReading {
+  font-size: var(--mantine-font-size-cardWindDirReading);
   font-weight: 500;
 }
 

@@ -1,20 +1,45 @@
-import { Divider, Group, Paper, Text } from "@mantine/core";
+import {
+  Divider,
+  Group,
+  Paper,
+  parseThemeColor,
+  Stack,
+  Text,
+  useMantineTheme,
+} from "@mantine/core";
 import { dataLabels } from "../../../utils";
 import classes from "./LastReadingCard.module.css";
+import { COMPASS_DIRECTIONS_FULL } from "../../../utils/consts";
 
 export const LatestReadingCard = (props: {
   measurement: string;
   reading: number;
 }) => {
-  const { label, unit, color = "gray.6" } = dataLabels[props.measurement];
+  const { label, unit, color = "gray.6", icon } = dataLabels[props.measurement];
+  const theme = useMantineTheme();
+
+  console.log(theme.scale);
 
   return (
-    <Paper classNames={{ root: classes.cardRoot }} bg="none">
-      <Divider size="xl" color={color} />
-      <Text className={classes.label}>{label}</Text>
-      <Group justify="center" gap="xs">
-        <Text className={classes.reading}>{props.reading}</Text>
-        <Text className={classes.unit}>{unit}</Text>
+    <Paper miw={275} bg="none">
+      <Divider size="xl" color={color} mb="xs" />
+      <Group>
+        {icon ? icon(48, parseThemeColor({ color, theme }).value) : ""}
+        <Stack gap={0}>
+          <Text size="lg">{label}</Text>
+          <Group gap="xs">
+            {props.measurement === "windDirection" ? (
+              <Text className={classes.windDirReading}>
+                {COMPASS_DIRECTIONS_FULL[225]}
+              </Text>
+            ) : (
+              <>
+                <Text className={classes.reading}>{props.reading}</Text>
+                <Text className={classes.unit}>{unit}</Text>
+              </>
+            )}
+          </Group>
+        </Stack>
       </Group>
     </Paper>
   );

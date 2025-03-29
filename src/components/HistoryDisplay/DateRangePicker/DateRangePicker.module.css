@@ -3,10 +3,12 @@
 }
 
 .segmentIndicator {
-  background-color: var(--mantine-color-gray-0);
+  background-color: var(--mantine-color-gray-2);
+  box-shadow: none;
 
   @mixin dark {
     background-color: var(--mantine-color-dark-8);
+    box-shadow: none;
   }
 }
 
@@ -17,10 +19,17 @@
 .datePickerDay {
   &[data-first-in-range],
   &[data-last-in-range] {
-    background-color: var(--mantine-color-dark-8) !important;
+    background-color: var(--mantine-color-gray-5) !important;
     color: inherit;
+    @mixin dark {
+      background-color: var(--mantine-color-dark-8) !important;
+      color: inherit;
+    }
   }
   &[data-in-range] {
-    background-color: alpha(var(--mantine-color-dark-8), 0.5);
+    background-color: alpha(var(--mantine-color-gray-5), 0.5);
+    @mixin dark {
+      background-color: alpha(var(--mantine-color-dark-8), 0.5);
+    }
   }
 }

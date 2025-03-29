@@ -17,12 +17,14 @@ export const LatestReadingCard = (props: {
   const { label, unit, color = "gray.6", icon } = dataLabels[props.measurement];
   const theme = useMantineTheme();
 
+  console.log(theme.scale);
+
   return (
-    <Paper classNames={{ root: classes.cardRoot }} bg="none">
-      <Divider size="xl" color={color} />
+    <Paper miw={275} bg="none">
+      <Divider size="xl" color={color} mb="xs" />
       <Group>
         {icon ? icon(48, parseThemeColor({ color, theme }).value) : ""}
-        <Stack gap="xs">
+        <Stack gap={0}>
           <Text size="lg">{label}</Text>
           <Group gap="xs">
             <Text className={classes.reading}>{props.reading}</Text>

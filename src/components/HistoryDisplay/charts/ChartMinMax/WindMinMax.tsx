@@ -20,8 +20,6 @@ export const WindMinMax = (props: { windData: WindDirData[] }) => {
     }
   });
 
-  console.log(prevailing);
-
   return (
     <Table
       withRowBorders={false}

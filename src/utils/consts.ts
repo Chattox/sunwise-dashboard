@@ -9,3 +9,15 @@ export const COMPASS_DIRECTIONS: Record<number, string> = {
   315: "NW",
   360: "N",
 };
+
+export const COMPASS_DIRECTIONS_FULL: Record<number, string> = {
+  0: "North",
+  45: "Northeast",
+  90: "East",
+  135: "Southeast",
+  180: "South",
+  225: "Southwest",
+  270: "West",
+  315: "Northwest",
+  360: "North",
+};

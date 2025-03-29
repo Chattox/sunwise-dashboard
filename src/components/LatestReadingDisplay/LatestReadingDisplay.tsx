@@ -35,7 +35,7 @@ export const LatestReadingDisplay = (props: { station: string }) => {
   }, [props.station]);
 
   const display = (
-    <Group w="100%" gap="xl" grow>
+    <Group w="100%" gap="xl" align="flex-start" grow>
       {Object.keys(latestReading.data).map((measurement: string) => (
         <LatestReadingCard
           measurement={measurement}

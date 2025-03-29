@@ -3,6 +3,11 @@
   font-weight: 500;
 }
 
+.windDirReading {
+  font-size: var(--mantine-font-size-cardWindDirReading);
+  font-weight: 500;
+}
+
 .unit {
   font-size: var(--mantine-font-size-cardUnit);
   font-weight: 500;

@@ -9,6 +9,7 @@ import {
 } from "@mantine/core";
 import { dataLabels } from "../../../utils";
 import classes from "./LastReadingCard.module.css";
+import { COMPASS_DIRECTIONS_FULL } from "../../../utils/consts";
 
 export const LatestReadingCard = (props: {
   measurement: string;
@@ -27,8 +28,16 @@ export const LatestReadingCard = (props: {
         <Stack gap={0}>
           <Text size="lg">{label}</Text>
           <Group gap="xs">
-            <Text className={classes.reading}>{props.reading}</Text>
-            <Text className={classes.unit}>{unit}</Text>
+            {props.measurement === "windDirection" ? (
+              <Text className={classes.windDirReading}>
+                {COMPASS_DIRECTIONS_FULL[225]}
+              </Text>
+            ) : (
+              <>
+                <Text className={classes.reading}>{props.reading}</Text>
+                <Text className={classes.unit}>{unit}</Text>
+              </>
+            )}
           </Group>
         </Stack>
       </Group>

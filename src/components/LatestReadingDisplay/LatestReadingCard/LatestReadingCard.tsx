@@ -30,7 +30,7 @@ export const LatestReadingCard = (props: {
           <Group gap="xs">
             {props.measurement === "windDirection" ? (
               <Text className={classes.windDirReading}>
-                {COMPASS_DIRECTIONS_FULL[225]}
+                {COMPASS_DIRECTIONS_FULL[props.reading]}
               </Text>
             ) : (
               <>

@@ -4,7 +4,6 @@ export const theme = createTheme({
   black: "#0e0e13",
   fontSizes: {
     cardUnit: rem(28),
-    cardReading: rem(46),
-    cardWindDirReading: rem(44),
+    cardReading: rem(44),
   },
 });

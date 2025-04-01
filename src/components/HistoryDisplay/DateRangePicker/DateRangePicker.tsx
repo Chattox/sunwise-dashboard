@@ -3,7 +3,7 @@ import { DatePicker } from "@mantine/dates";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import classes from "./DateRangePicker.module.css";
-// import { IconChevronDown, IconClockHour9 } from "@tabler/icons-react";
+import { TbChevronDown, TbClockHour9 } from "react-icons/tb";
 
 export const DateRangePicker = (props: {
   dateRange?: dayjs.Dayjs[];
@@ -48,7 +48,6 @@ export const DateRangePicker = (props: {
   }, [props.period]);
 
   const handleDateChange = (start: Date | null, end: Date | null) => {
-    props.setPeriod("custom");
     if (start && end) {
       const startDjs = dayjs(start);
       const endDjs = dayjs(end);
@@ -62,6 +61,7 @@ export const DateRangePicker = (props: {
 
       setRange([start, end]);
       setOpened(false);
+      props.setPeriod("custom");
     } else {
       setRange([start, null]);
     }
@@ -73,18 +73,23 @@ export const DateRangePicker = (props: {
       onChange={setOpened}
       shadow="sm"
       classNames={{ dropdown: classes.dropdown }}
+      position="bottom-start"
     >
       <Popover.Target>
         <Button
           onClick={() => setOpened((o) => !o)}
-          radius="xs"
-          //leftSection={<IconClockHour9 size={16} />}
-          //rightSection={<IconChevronDown size={16} />}
+          leftSection={<TbClockHour9 size={16} />}
+          rightSection={<TbChevronDown size={16} />}
+          variant="default"
+          c="inherit"
+          classNames={{
+            root: classes.buttonRoot,
+          }}
         >
           {rangeSegmentControlDict[props.period]}
         </Button>
       </Popover.Target>
-      <Popover.Dropdown>
+      <Popover.Dropdown p="xs">
         <Group>
           <DatePicker
             type="range"
@@ -92,6 +97,7 @@ export const DateRangePicker = (props: {
             value={range}
             onChange={(e) => handleDateChange(e[0], e[1])}
             maxDate={new Date()}
+            classNames={{ day: classes.datePickerDay }}
           />
           <SegmentedControl
             orientation="vertical"
@@ -99,6 +105,7 @@ export const DateRangePicker = (props: {
             onChange={(e) => {
               props.setPeriod(e);
               setOpened(false);
+              setRange([null, null]);
             }}
             data={[
               { label: "24hr", value: "day" },
@@ -108,6 +115,7 @@ export const DateRangePicker = (props: {
               { label: "All", value: "all" },
             ]}
             withItemsBorders={false}
+            bg="none"
             classNames={{
               indicator:
                 props.period === "custom"

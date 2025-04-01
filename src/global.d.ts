@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export {};
 
 declare global {
@@ -44,6 +46,11 @@ declare global {
   };
 
   type DataLabels = {
-    [key: string]: { label: string; unit: string };
+    [key: string]: {
+      label: string;
+      unit: string;
+      color?: string;
+      icon?: (size?: string | number, color?: string) => JSX.Element;
+    };
   };
 }

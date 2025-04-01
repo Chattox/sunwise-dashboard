@@ -10,6 +10,7 @@ export const ReadingBarChart = (props: {
 }) => {
   const label = dataLabels[props.measurement].label;
   const unit = dataLabels[props.measurement].unit;
+  const lineColor = dataLabels[props.measurement].color || "gray.6";
 
   const chartData = formatTimestamps(props.data, props.measurement);
   return (
@@ -19,7 +20,14 @@ export const ReadingBarChart = (props: {
         data={chartData}
         unit={unit}
         dataKey="timestamp"
-        series={[{ name: props.measurement, label: label, color: "blue.6" }]}
+        series={[{ name: props.measurement, label: label, color: lineColor }]}
+        yAxisProps={{
+          domain: ["auto", "auto"],
+          width: 70,
+          tickLine: false,
+          interval: 0,
+        }}
+        xAxisProps={{ tick: false }}
       />
       <ChartMinMax data={props.data} measurement={props.measurement} />
     </Stack>

@@ -3,6 +3,7 @@ import { getLatestReading } from "../../utils";
 import { Group, Stack, Text } from "@mantine/core";
 import { LatestReadingCard } from "./LatestReadingCard";
 import { formatReadings } from "../../utils/formatReadings";
+import { formatSingleTimestamp } from "../../utils/formatTimestamps";
 
 export const LatestReadingDisplay = (props: { station: string }) => {
   const [latestReading, setLatestReading] = useState<FormattedReading>({
@@ -34,7 +35,7 @@ export const LatestReadingDisplay = (props: { station: string }) => {
   }, [props.station]);
 
   const display = (
-    <Group w="100%" gap="xs" grow>
+    <Group w="100%" gap="xl" align="flex-start" grow>
       {Object.keys(latestReading.data).map((measurement: string) => (
         <LatestReadingCard
           measurement={measurement}
@@ -53,7 +54,9 @@ export const LatestReadingDisplay = (props: { station: string }) => {
         <Stack>
           <Text fw={500}>
             Latest reading:{" "}
-            {latestReading.timestamp ? latestReading.timestamp : "N/A"}
+            {latestReading.timestamp
+              ? formatSingleTimestamp(latestReading.timestamp)
+              : "N/A"}
           </Text>
           {display}
         </Stack>

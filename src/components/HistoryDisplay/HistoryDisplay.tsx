@@ -84,7 +84,7 @@ export const HistoryDisplay = (props: { station: string }) => {
 
     return (
       <Grid.Col span={4} key={dataLabels[measurement].label}>
-        <Paper radius="xs" p="sm">
+        <Paper radius="xs" p="sm" bg="none">
           <Stack h="100%" justify="flex-start">
             <Text size="lg" fw={500} pl={16}>
               {dataLabels[measurement].label}

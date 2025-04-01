@@ -1,3 +1,11 @@
+.buttonRoot {
+  border-color: var(--mantine-color-gray-4);
+
+  @mixin dark {
+    border-color: var(--mantine-color-dark-4);
+  }
+}
+
 .disabledIndicator {
   display: none;
 }

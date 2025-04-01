@@ -73,18 +73,18 @@ export const DateRangePicker = (props: {
       onChange={setOpened}
       shadow="sm"
       classNames={{ dropdown: classes.dropdown }}
-      radius="xs"
       position="bottom-start"
     >
       <Popover.Target>
         <Button
           onClick={() => setOpened((o) => !o)}
-          radius="xs"
           leftSection={<TbClockHour9 size={16} />}
           rightSection={<TbChevronDown size={16} />}
           variant="default"
           c="inherit"
-          bd="none"
+          classNames={{
+            root: classes.buttonRoot,
+          }}
         >
           {rangeSegmentControlDict[props.period]}
         </Button>

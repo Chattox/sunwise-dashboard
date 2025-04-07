@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { getLatestReading } from "../../utils";
-import { Group, Stack, Text } from "@mantine/core";
+import { Grid, Group, Stack, Text } from "@mantine/core";
 import { LatestReadingCard } from "./LatestReadingCard";
 import { formatReadings } from "../../utils/formatReadings";
 import { formatSingleTimestamp } from "../../utils/formatTimestamps";
+import classes from "./LatestReadingDisplay.module.css";
 
-export const LatestReadingDisplay = (props: { station: string }) => {
+export const LatestReadingDisplay = (props: {
+  station: string;
+  isMobile: boolean;
+}) => {
   const [latestReading, setLatestReading] = useState<FormattedReading>({
     stationName: "wang",
     timestamp: "",
@@ -46,19 +50,33 @@ export const LatestReadingDisplay = (props: { station: string }) => {
     </Group>
   );
 
+  const mobileDisplay = (
+    <Grid gutter="xs">
+      {Object.keys(latestReading.data).map((measurement: string) => (
+        <Grid.Col span={6}>
+          <LatestReadingCard
+            measurement={measurement}
+            reading={latestReading.data[measurement]}
+            key={measurement}
+          />
+        </Grid.Col>
+      ))}
+    </Grid>
+  );
+
   return (
     <>
       {loading ? (
         <p>Loading</p>
       ) : (
         <Stack>
-          <Text fw={500}>
+          <Text className={classes.latest}>
             Latest reading:{" "}
             {latestReading.timestamp
               ? formatSingleTimestamp(latestReading.timestamp)
               : "N/A"}
           </Text>
-          {display}
+          {props.isMobile ? mobileDisplay : display}
         </Stack>
       )}
     </>

@@ -14,7 +14,7 @@ export const Dashboard = (props: { isMobile: boolean }) => {
           <ColorSchemeSwitcher />
         </Group>
         <Title order={4}>Current conditions</Title>
-        <LatestReadingDisplay station="sunwise" />
+        <LatestReadingDisplay station="sunwise" isMobile={props.isMobile} />
         <Title order={4}>History</Title>
         <HistoryDisplay station="sunwise" />
       </Stack>

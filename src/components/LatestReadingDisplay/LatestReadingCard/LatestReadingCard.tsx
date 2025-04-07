@@ -19,7 +19,7 @@ export const LatestReadingCard = (props: {
   const theme = useMantineTheme();
 
   return (
-    <Paper miw={275} bg="none">
+    <Paper className={classes.card} bg="none">
       <Divider size="xl" color={color} mb="xs" />
       <Group>
         {icon ? icon(48, parseThemeColor({ color, theme }).value) : ""}
@@ -32,8 +32,12 @@ export const LatestReadingCard = (props: {
               </Text>
             ) : (
               <>
-                <Text className={classes.reading}>{props.reading}</Text>
-                <Text className={classes.unit}>{unit}</Text>
+                <Text inline className={classes.reading}>
+                  {props.reading}
+                </Text>
+                <Text inline className={classes.unit}>
+                  {unit}
+                </Text>
               </>
             )}
           </Group>

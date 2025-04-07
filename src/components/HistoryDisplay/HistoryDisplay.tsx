@@ -5,12 +5,16 @@ import { dataLabels, getAllReadings, getDateRangeReadings } from "../../utils";
 import { formatReadings } from "../../utils/formatReadings";
 import { getIndividualReadingHistory } from "../../utils/getIndividualReadingHistory";
 import { ReadingAreaChart } from "./charts/ReadingAreaChart";
-import { Grid, Paper, Stack, Text } from "@mantine/core";
+import { Accordion, Grid, Paper, Stack, Text } from "@mantine/core";
 import { ReadingBarChart } from "./charts/ReadingBarChart";
 import { ReadingRadarChart } from "./charts/ReadingRadarChart";
 import { getWindDirData } from "../../utils/getWindData";
+import { Sparkline } from "@mantine/charts";
 
-export const HistoryDisplay = (props: { station: string }) => {
+export const HistoryDisplay = (props: {
+  station: string;
+  isMobile: boolean;
+}) => {
   const [readingsHistory, setReadingsHistory] = useState<FormattedReading[]>(
     []
   );
@@ -20,6 +24,7 @@ export const HistoryDisplay = (props: { station: string }) => {
   const [endDate, setEndDate] = useState<dayjs.Dayjs>(dayjs());
   const [period, setPeriod] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const [mobileVal, setMobileVal] = useState<string | null>(null);
 
   const chartTypes: Record<string, string> = {
     temperature: "area",
@@ -79,26 +84,66 @@ export const HistoryDisplay = (props: { station: string }) => {
     }
   };
 
-  const historyDisplays = Object.keys(dataLabels).map((measurement: string) => {
-    const data = getIndividualReadingHistory(readingsHistory, measurement);
+  const getHistoryDisplays = () =>
+    Object.keys(dataLabels).map((measurement: string) => {
+      const data = getIndividualReadingHistory(readingsHistory, measurement);
 
-    return (
-      <Grid.Col span={4} key={dataLabels[measurement].label}>
-        <Paper p="sm" bg="none">
-          <Stack h="100%" justify="flex-start">
-            <Text size="lg" fw={500} pl={16}>
-              {dataLabels[measurement].label}
-            </Text>
-            {data.length > 0 ? (
-              getChart(data, measurement)
-            ) : (
-              <Text ta="center">No data</Text>
-            )}
-          </Stack>
-        </Paper>
-      </Grid.Col>
-    );
-  });
+      return (
+        <Grid.Col span={4} key={dataLabels[measurement].label}>
+          <Paper p="sm" bg="none">
+            <Stack h="100%" justify="flex-start">
+              <Text size="lg" fw={500} pl={16}>
+                {dataLabels[measurement].label}
+              </Text>
+              {data.length > 0 ? (
+                getChart(data, measurement)
+              ) : (
+                <Text ta="center">No data</Text>
+              )}
+            </Stack>
+          </Paper>
+        </Grid.Col>
+      );
+    });
+
+  const getMobileHistoryDisplays = () => {
+    return Object.keys(dataLabels).map((measurement: string) => {
+      const data = getIndividualReadingHistory(readingsHistory, measurement);
+      const sparkData = data.map((i) => i[measurement] as number);
+
+      const sparkChart = (
+        <Sparkline
+          w="5rem"
+          h="3rem"
+          data={sparkData}
+          color={dataLabels[measurement].color}
+          curveType="natural"
+          fillOpacity={0.5}
+        />
+      );
+
+      return (
+        <Accordion.Item key={measurement} value={measurement}>
+          <Accordion.Control
+            icon={mobileVal === measurement ? null : sparkChart}
+          >
+            {dataLabels[measurement].label}
+          </Accordion.Control>
+          <Accordion.Panel>
+            {mobileVal === measurement ? (
+              <Paper bg="none">
+                {data.length > 0 ? (
+                  getChart(data, measurement)
+                ) : (
+                  <Text ta="center">No data</Text>
+                )}
+              </Paper>
+            ) : null}
+          </Accordion.Panel>
+        </Accordion.Item>
+      );
+    });
+  };
 
   return (
     <Stack align="flex-start">
@@ -108,7 +153,21 @@ export const HistoryDisplay = (props: { station: string }) => {
         period={period}
         setPeriod={setPeriod}
       />
-      {loading ? <Text>Loading</Text> : <Grid w="100%">{historyDisplays}</Grid>}
+      {loading ? (
+        <Text>Loading</Text>
+      ) : props.isMobile ? (
+        <Accordion
+          w="100%"
+          chevronPosition="left"
+          value={mobileVal}
+          onChange={setMobileVal}
+          transitionDuration={0}
+        >
+          {getMobileHistoryDisplays()}
+        </Accordion>
+      ) : (
+        <Grid w="100%">{getHistoryDisplays()}</Grid>
+      )}
     </Stack>
   );
 };

@@ -1,9 +1,26 @@
+.card {
+  min-width: 275px;
+
+  @media (max-width: 75em) {
+    min-width: 0px;
+    width: 100%;
+  }
+}
+
 .reading {
   font-size: var(--mantine-font-size-cardReading);
   font-weight: 500;
+
+  @media (max-width: 75em) {
+    font-size: var(--mantine-font-size-xl);
+  }
 }
 
 .unit {
   font-size: var(--mantine-font-size-cardUnit);
   font-weight: 500;
+
+  @media (max-width: 75em) {
+    font-size: var(--mantine-font-size-lg);
+  }
 }

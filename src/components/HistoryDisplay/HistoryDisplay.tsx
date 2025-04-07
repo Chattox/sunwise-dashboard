@@ -5,12 +5,15 @@ import { dataLabels, getAllReadings, getDateRangeReadings } from "../../utils";
 import { formatReadings } from "../../utils/formatReadings";
 import { getIndividualReadingHistory } from "../../utils/getIndividualReadingHistory";
 import { ReadingAreaChart } from "./charts/ReadingAreaChart";
-import { Grid, Paper, Stack, Text } from "@mantine/core";
+import { Accordion, Grid, Paper, Stack, Text } from "@mantine/core";
 import { ReadingBarChart } from "./charts/ReadingBarChart";
 import { ReadingRadarChart } from "./charts/ReadingRadarChart";
 import { getWindDirData } from "../../utils/getWindData";
 
-export const HistoryDisplay = (props: { station: string }) => {
+export const HistoryDisplay = (props: {
+  station: string;
+  isMobile: boolean;
+}) => {
   const [readingsHistory, setReadingsHistory] = useState<FormattedReading[]>(
     []
   );
@@ -79,26 +82,48 @@ export const HistoryDisplay = (props: { station: string }) => {
     }
   };
 
-  const historyDisplays = Object.keys(dataLabels).map((measurement: string) => {
-    const data = getIndividualReadingHistory(readingsHistory, measurement);
+  const getHistoryDisplays = () =>
+    Object.keys(dataLabels).map((measurement: string) => {
+      const data = getIndividualReadingHistory(readingsHistory, measurement);
 
-    return (
-      <Grid.Col span={4} key={dataLabels[measurement].label}>
-        <Paper p="sm" bg="none">
-          <Stack h="100%" justify="flex-start">
-            <Text size="lg" fw={500} pl={16}>
-              {dataLabels[measurement].label}
-            </Text>
-            {data.length > 0 ? (
-              getChart(data, measurement)
-            ) : (
-              <Text ta="center">No data</Text>
-            )}
-          </Stack>
-        </Paper>
-      </Grid.Col>
-    );
-  });
+      return (
+        <Grid.Col span={4} key={dataLabels[measurement].label}>
+          <Paper p="sm" bg="none">
+            <Stack h="100%" justify="flex-start">
+              <Text size="lg" fw={500} pl={16}>
+                {dataLabels[measurement].label}
+              </Text>
+              {data.length > 0 ? (
+                getChart(data, measurement)
+              ) : (
+                <Text ta="center">No data</Text>
+              )}
+            </Stack>
+          </Paper>
+        </Grid.Col>
+      );
+    });
+
+  const getMobileHistoryDisplays = () => {
+    return Object.keys(dataLabels).map((measurement: string) => {
+      const data = getIndividualReadingHistory(readingsHistory, measurement);
+
+      return (
+        <Accordion.Item key={measurement} value={measurement}>
+          <Accordion.Control>{dataLabels[measurement].label}</Accordion.Control>
+          <Accordion.Panel>
+            <Paper bg="none">
+              {data.length > 0 ? (
+                getChart(data, measurement)
+              ) : (
+                <Text ta="center">No data</Text>
+              )}
+            </Paper>
+          </Accordion.Panel>
+        </Accordion.Item>
+      );
+    });
+  };
 
   return (
     <Stack align="flex-start">
@@ -108,7 +133,13 @@ export const HistoryDisplay = (props: { station: string }) => {
         period={period}
         setPeriod={setPeriod}
       />
-      {loading ? <Text>Loading</Text> : <Grid w="100%">{historyDisplays}</Grid>}
+      {loading ? (
+        <Text>Loading</Text>
+      ) : props.isMobile ? (
+        <Accordion w="100%">{getMobileHistoryDisplays()}</Accordion>
+      ) : (
+        <Grid w="100%">{getHistoryDisplays()}</Grid>
+      )}
     </Stack>
   );
 };

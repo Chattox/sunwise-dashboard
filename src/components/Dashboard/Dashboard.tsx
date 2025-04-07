@@ -3,7 +3,7 @@ import { LatestReadingDisplay } from "../LatestReadingDisplay";
 import { HistoryDisplay } from "../HistoryDisplay";
 import { ColorSchemeSwitcher } from "../ColorSchemeSwitcher/ColorSchemeSwitcher";
 
-export const Dashboard = () => {
+export const Dashboard = (props: { isMobile: boolean }) => {
   return (
     <Box p="xs">
       <Stack>
@@ -14,9 +14,9 @@ export const Dashboard = () => {
           <ColorSchemeSwitcher />
         </Group>
         <Title order={4}>Current conditions</Title>
-        <LatestReadingDisplay station="sunwise" />
+        <LatestReadingDisplay station="sunwise" isMobile={props.isMobile} />
         <Title order={4}>History</Title>
-        <HistoryDisplay station="sunwise" />
+        <HistoryDisplay station="sunwise" isMobile={props.isMobile} />
       </Stack>
     </Box>
   );

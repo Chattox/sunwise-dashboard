@@ -5,11 +5,15 @@ import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import { Dashboard } from "./components/Dashboard";
 import { theme } from "./theme";
+import { useMediaQuery } from "@mantine/hooks";
 
 function App() {
+  const isMobile = useMediaQuery("(max-width: 75em)") || false;
+
+  console.log(isMobile);
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
-      <Dashboard />
+      <Dashboard isMobile={isMobile} />
     </MantineProvider>
   );
 }

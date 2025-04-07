@@ -3,7 +3,7 @@ import { LatestReadingDisplay } from "../LatestReadingDisplay";
 import { HistoryDisplay } from "../HistoryDisplay";
 import { ColorSchemeSwitcher } from "../ColorSchemeSwitcher/ColorSchemeSwitcher";
 
-export const Dashboard = () => {
+export const Dashboard = (props: { isMobile: boolean }) => {
   return (
     <Box p="xs">
       <Stack>

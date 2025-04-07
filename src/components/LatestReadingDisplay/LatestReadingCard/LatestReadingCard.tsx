@@ -18,8 +18,6 @@ export const LatestReadingCard = (props: {
   const { label, unit, color = "gray.6", icon } = dataLabels[props.measurement];
   const theme = useMantineTheme();
 
-  console.log(theme.scale);
-
   return (
     <Paper miw={275} bg="none">
       <Divider size="xl" color={color} mb="xs" />

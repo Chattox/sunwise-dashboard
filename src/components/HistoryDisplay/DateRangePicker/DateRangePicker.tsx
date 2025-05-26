@@ -52,12 +52,7 @@ export const DateRangePicker = (props: {
       const startDjs = dayjs(start);
       const endDjs = dayjs(end);
 
-      // If dates are the same, set range to that whole 24 hr period
-      if (startDjs.isSame(endDjs)) {
-        props.setDateRange([startDjs.startOf("day"), endDjs.endOf("day")]);
-      } else {
-        props.setDateRange([startDjs, endDjs]);
-      }
+      props.setDateRange([startDjs.startOf("day"), endDjs.endOf("day")]);
 
       setRange([start, end]);
       setOpened(false);

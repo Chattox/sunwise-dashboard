@@ -9,8 +9,6 @@ import { useMediaQuery } from "@mantine/hooks";
 
 function App() {
   const isMobile = useMediaQuery("(max-width: 75em)") || false;
-
-  console.log(isMobile);
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
       <Dashboard isMobile={isMobile} />

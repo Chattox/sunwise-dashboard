@@ -22,9 +22,14 @@ export const HistoryDisplay = (props: {
     dayjs().startOf("day")
   );
   const [endDate, setEndDate] = useState<dayjs.Dayjs>(dayjs());
+  const [prevStart, setPrevStart] = useState<dayjs.Dayjs>(
+    dayjs().startOf("day")
+  );
+  const [prevEnd, setPrevEnd] = useState<dayjs.Dayjs>(dayjs().startOf("day"));
   const [period, setPeriod] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
   const [mobileVal, setMobileVal] = useState<string | null>(null);
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
 
   const chartTypes: Record<string, string> = {
     temperature: "area",
@@ -39,15 +44,19 @@ export const HistoryDisplay = (props: {
   };
 
   useEffect(() => {
-    setLoading(true);
     if (period === "all") {
+      setLoading(true);
       getAllReadings(props.station).then((res) => {
         setReadingsHistory(formatReadings(res));
         if (props.station) {
           setLoading(false);
         }
       });
-    } else {
+    } else if (
+      isFirstLoad ||
+      (!startDate.isSame(prevStart) && !endDate.isSame(prevEnd))
+    ) {
+      setLoading(true);
       getDateRangeReadings(
         props.station,
         startDate.toISOString(),
@@ -55,7 +64,10 @@ export const HistoryDisplay = (props: {
       ).then((res) => {
         setReadingsHistory(formatReadings(res));
         if (props.station) {
+          setPrevStart(startDate);
+          setPrevEnd(endDate);
           setLoading(false);
+          setIsFirstLoad(false);
         }
       });
     }

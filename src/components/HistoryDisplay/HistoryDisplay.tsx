@@ -11,6 +11,7 @@ import { ReadingRadarChart } from "./charts/ReadingRadarChart";
 import { getWindDirData } from "../../utils/getWindData";
 import { Sparkline } from "@mantine/charts";
 import { downsampleData } from "../../utils/downsampleData";
+import { MAX_DATA_POINTS } from "../../utils/consts";
 
 export const HistoryDisplay = (props: {
   station: string;
@@ -101,8 +102,11 @@ export const HistoryDisplay = (props: {
 
   const getHistoryDisplays = () =>
     Object.keys(dataLabels).map((measurement: string) => {
-      const data = getIndividualReadingHistory(readingsHistory, measurement);
-      const downsampledData = downsampleData(data, measurement);
+      const rawData = getIndividualReadingHistory(readingsHistory, measurement);
+      const data =
+        rawData.length > MAX_DATA_POINTS
+          ? downsampleData(rawData, measurement)
+          : rawData;
 
       return (
         <Grid.Col span={4} key={dataLabels[measurement].label}>
@@ -111,8 +115,8 @@ export const HistoryDisplay = (props: {
               <Text size="lg" fw={500} pl={16}>
                 {dataLabels[measurement].label}
               </Text>
-              {downsampledData.length > 0 ? (
-                getChart(downsampledData, measurement)
+              {data.length > 0 ? (
+                getChart(data, measurement)
               ) : (
                 <Text ta="center">No data</Text>
               )}
@@ -124,9 +128,12 @@ export const HistoryDisplay = (props: {
 
   const getMobileHistoryDisplays = () => {
     return Object.keys(dataLabels).map((measurement: string) => {
-      const data = getIndividualReadingHistory(readingsHistory, measurement);
-      const downsampledData = downsampleData(data, measurement);
-      const sparkData = downsampledData.map((i) => i[measurement] as number);
+      const rawData = getIndividualReadingHistory(readingsHistory, measurement);
+      const data =
+        rawData.length > MAX_DATA_POINTS
+          ? downsampleData(rawData, measurement)
+          : rawData;
+      const sparkData = data.map((i) => i[measurement] as number);
 
       const sparkChart = (
         <Sparkline
@@ -149,7 +156,7 @@ export const HistoryDisplay = (props: {
           <Accordion.Panel>
             {mobileVal === measurement ? (
               <Paper bg="none">
-                {downsampledData.length > 0 ? (
+                {data.length > 0 ? (
                   getChart(data, measurement)
                 ) : (
                   <Text ta="center">No data</Text>

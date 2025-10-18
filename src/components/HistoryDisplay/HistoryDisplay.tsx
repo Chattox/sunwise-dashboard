@@ -54,7 +54,8 @@ export const HistoryDisplay = (props: {
       });
     } else if (
       isFirstLoad ||
-      (!startDate.isSame(prevStart) && !endDate.isSame(prevEnd))
+      !startDate.isSame(prevStart) ||
+      !endDate.isSame(prevEnd)
     ) {
       setLoading(true);
       getDateRangeReadings(

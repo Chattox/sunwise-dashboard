@@ -10,6 +10,7 @@ import { ReadingBarChart } from "./charts/ReadingBarChart";
 import { ReadingRadarChart } from "./charts/ReadingRadarChart";
 import { getWindDirData } from "../../utils/getWindData";
 import { Sparkline } from "@mantine/charts";
+import { downsampleData } from "../../utils/downsampleData";
 
 export const HistoryDisplay = (props: {
   station: string;
@@ -72,6 +73,7 @@ export const HistoryDisplay = (props: {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.station, startDate, endDate, period]);
 
   const setDateRange = (dates: dayjs.Dayjs[]) => {
@@ -100,6 +102,7 @@ export const HistoryDisplay = (props: {
   const getHistoryDisplays = () =>
     Object.keys(dataLabels).map((measurement: string) => {
       const data = getIndividualReadingHistory(readingsHistory, measurement);
+      const downsampledData = downsampleData(data, measurement);
 
       return (
         <Grid.Col span={4} key={dataLabels[measurement].label}>
@@ -108,8 +111,8 @@ export const HistoryDisplay = (props: {
               <Text size="lg" fw={500} pl={16}>
                 {dataLabels[measurement].label}
               </Text>
-              {data.length > 0 ? (
-                getChart(data, measurement)
+              {downsampledData.length > 0 ? (
+                getChart(downsampledData, measurement)
               ) : (
                 <Text ta="center">No data</Text>
               )}
@@ -122,7 +125,8 @@ export const HistoryDisplay = (props: {
   const getMobileHistoryDisplays = () => {
     return Object.keys(dataLabels).map((measurement: string) => {
       const data = getIndividualReadingHistory(readingsHistory, measurement);
-      const sparkData = data.map((i) => i[measurement] as number);
+      const downsampledData = downsampleData(data, measurement);
+      const sparkData = downsampledData.map((i) => i[measurement] as number);
 
       const sparkChart = (
         <Sparkline
@@ -145,7 +149,7 @@ export const HistoryDisplay = (props: {
           <Accordion.Panel>
             {mobileVal === measurement ? (
               <Paper bg="none">
-                {data.length > 0 ? (
+                {downsampledData.length > 0 ? (
                   getChart(data, measurement)
                 ) : (
                   <Text ta="center">No data</Text>

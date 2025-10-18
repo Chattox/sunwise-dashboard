@@ -21,3 +21,6 @@ export const COMPASS_DIRECTIONS_FULL: Record<number, string> = {
   315: "Northwest",
   360: "North",
 };
+
+// Max number of data points to show on a history graph for performance
+export const MAX_DATA_POINTS: number = 2000;
